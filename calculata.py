@@ -96,6 +96,8 @@ new_exp_position = 0
 
 for d in exp_holder:
     print(d + " ")
+	
+print("=")
         
 for d in exp_holder:
     if symbol_check(d):
