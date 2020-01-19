@@ -95,13 +95,17 @@ result = int(exp_holder[0])
 new_exp_position = 0
 
 for d in exp_holder:
-    print(d + " ")
-	
-print("=")
-        
-for d in exp_holder:
     if symbol_check(d):
         result = math_func(d, result, int(exp_holder[new_exp_position+1]))
     new_exp_position += 1
+
+# Debugging printing on expression parts
+
+exp_str = ""
+for d in exp_holder:
+    exp_str += d
+print(exp_str + " = " + str(result))
     
+# Print result
+
 print(str(result))
