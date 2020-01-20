@@ -16,7 +16,17 @@ str_error_char = "One of the characters in your query is not valid."
 str_error_zero = "Division by zero detected."
 str_again = " Please try again."
 
+
+# Get the last integer
+
+def make_int(int_holder):
+    int_str = ""
+    for n in int_holder:
+        int_str += n
+    return int(int_str)
+
 # Checks that the input n is an integer
+
 def int_check(n):
     try:
         integer = int(n)
@@ -60,11 +70,10 @@ exp_holder = list()
 exp_position = 0
 
 for c in i:
-    # Check for integer
     if (int_check(c)):
         int_holder.append(c)
         if exp_position+1 == len(i):
-            exp_holder.append(int_str)
+            exp_holder.append(make_int(int_holder))
     # Check for symbol
     elif (symbol_check(c)):
         exp_size = len(exp_holder)
@@ -72,12 +81,8 @@ for c in i:
         if exp_size > 0 and symbol_check(exp_holder[exp_position-1]):
             print(str_error + str_error_symbol + str_again)
             exit()
-        # Get the last integer
-        int_str = ""
-        for n in int_holder:
-            int_str += n
         # Add the last integer and symbol to the expression
-        exp_holder.append(int_str)
+        exp_holder.append(make_int(int_holder))
         exp_holder.append(c)
         int_holder = list()
     else:
@@ -103,7 +108,7 @@ for d in exp_holder:
 
 exp_str = ""
 for d in exp_holder:
-    exp_str += d
+    exp_str += str(d)
 print(exp_str + " = " + str(result))
     
 # Print result
