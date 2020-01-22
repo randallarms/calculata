@@ -78,7 +78,7 @@ for c in i:
     elif (symbol_check(c)):
         exp_size = len(exp_holder)
         # Make sure symbols aren't back-to-back
-        if exp_size > 0 and symbol_check(exp_holder[exp_position-1]):
+        if exp_size > 0 and symbol_check(exp_holder[len(exp_holder)-2]):
             print(str_error + str_error_symbol + str_again)
             exit()
         # Add the last integer and symbol to the expression
