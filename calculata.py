@@ -85,6 +85,15 @@ for c in i:
         exp_holder.append(make_int(int_holder))
         exp_holder.append(c)
         int_holder = list()
+	# Check for parantheses
+	elif (parantheses_check(c) == "open" or "close"):
+        exp_size = len(exp_holder)
+        # Make sure symbols aren't back-to-back
+        if exp_size > 0 and int_check(exp_holder[len(exp_holder)-2]):
+            print(str_error + str_error_char + str_again)
+            exit()
+        # Add the parantheses to the expression
+        exp_holder.append(c)
     else:
         print(str_error + str_error_char + str_again)
         exit()
@@ -97,11 +106,17 @@ if not int_check(exp_holder[0]):
 
 # Iterate through list and evaluate
 result = int(exp_holder[0])
+group_results = list()
 new_exp_position = 0
 
 for d in exp_holder:
     if symbol_check(d):
         result = math_func(d, result, int(exp_holder[new_exp_position+1]))
+	# Check for parantheses
+    elif (parantheses_check(d) == "open"):
+		# ...
+    elif (parantheses_check(d) == "close"):
+		# Evaluate group_results and...
     new_exp_position += 1
 
 # Debugging printing on expression parts
