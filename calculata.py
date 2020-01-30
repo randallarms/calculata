@@ -5,27 +5,32 @@
 #=====================================#
 
 # Opening text
-print("\n\n=========")
-print("CALCULATA")
-print("=========")
+print("\n\n===================")
+print(" C A L C U L A T A ")
+print("===================")
 
-str_error = "[ERROR] "
-str_error_int = "Expression must begin with an integer."
-str_error_symbol = "Extraneous symbols were detected."
-str_error_char = "One of the characters in your query is not valid."
-str_error_zero = "Division by zero detected."
-str_again = " Please try again."
+# Error strings
+STR_ERROR = "[ERROR] "
+STR_ERROR_START = "Expression must begin with an integer or open paranthesis."
+STR_ERROR_SYMBOL = "Extraneous symbols were detected."
+STR_ERROR_CHAR = "One of the characters in your query is not valid."
+STR_ERROR_ZERO = "Division by zero detected."
+STR_ERROR_PARANTHESES = "Parantheses not properly closed."
+STR_AGAIN = " Please try again."
 
 
 # Get the last integer
 def make_int(int_holder):
+
     int_str = ""
+	
     for n in int_holder:
         int_str += n
     return int(int_str)
 
 # Checks that the input n is an integer
 def int_check(n):
+
     try:
         integer = int(n)
         return True
@@ -34,7 +39,9 @@ def int_check(n):
         
 # Checks that the input c is an integer  
 def symbol_check(c):
+
     symbols = ["+", "-", "*", "/"]
+	
     if (c in symbols):
         return True
     else:
@@ -42,6 +49,7 @@ def symbol_check(c):
         
 # Checks that the input p is a parenthesis
 def paranthesis_check(p):
+
     if p == "(" or p == ")":
         return True
     else:
@@ -49,6 +57,7 @@ def paranthesis_check(p):
         
 # Performs a math function based on the parameters
 def math_func(symbol, n1, n2):
+
     if symbol == "+":
         return n1+n2
     elif symbol == "-":
@@ -57,15 +66,17 @@ def math_func(symbol, n1, n2):
         return n1*n2
     elif symbol == "/":
         if n2 == 0:
-            print(str_error + str_error_zero + str_again)
+            print(STR_ERROR + STR_ERROR_ZERO + STR_AGAIN)
             exit()
         return n1/n2
         
 # Turn string into list of integers & symbols
 def listify(i):
+
     int_holder = list()
     exp_holder = list()
     exp_position = 0
+	
     for c in i:
         if (int_check(c)):
             int_holder.append(c)
@@ -76,7 +87,7 @@ def listify(i):
             exp_size = len(exp_holder)
             # Make sure symbols aren't back-to-back
             if exp_size > 0 and symbol_check(exp_holder[len(exp_holder)-2]):
-                print(str_error + str_error_symbol + str_again)
+                print(STR_ERROR + STR_ERROR_SYMBOL + STR_AGAIN)
                 exit()
             # Add the last integer and symbol to the expression
             exp_holder.append(make_int(int_holder))
@@ -87,35 +98,46 @@ def listify(i):
             exp_size = len(exp_holder)
             # Make sure symbols aren't back-to-back
             if exp_size > 0 and int_check(exp_holder[exp_size-2]):
-                print(str_error + str_error_char + str_again)
+                print(STR_ERROR + STR_ERROR_CHAR + STR_AGAIN)
                 exit()
             # Add the parantheses to the expression
             exp_holder.append(c)
         else:
-            print(str_error + str_error_char + str_again)
+            print(STR_ERROR + STR_ERROR_CHAR + STR_AGAIN)
             exit()
         exp_position += 1
         
-    # Check that a number comes first
-    if not int_check(exp_holder[0]):
-        print(str_error + str_error_int + str_again)
-        exit()
-    else:
+    # Check that a number or open paranthesis comes first
+    if int_check(exp_holder[0]) or exp_holder[0] == "(":
         return exp_holder
+    else:
+        print(STR_ERROR + STR_ERROR_START + STR_AGAIN)
+        exit()
         
 # Iterate through list and evaluate
 def evaluate(exp_holder):
-    result = int(exp_holder[0])
+
+    # Check that expression begins with an integer or open paranthesis
+    if int_check(exp_holder[0]):
+        result = int(exp_holder[0])
+    elif exp_holder[0] == "(":
+        result = 0
+    else:
+        print(STR_ERROR + STR_ERROR_START + STR_AGAIN)
+		
     group_results = list()
     eval_exp_position = 0
     current_exp_position = 0
+	
     for d in exp_holder:
+	
         # Check that loop is caught up
         if current_exp_position >= eval_exp_position:
             # Evaluate current expression
             if symbol_check(d):
                 next_d = int(exp_holder[eval_exp_position+1])
-                if next_d == ")":
+				# Parantheses detection
+                if next_d == "(":
                     # Evaluate inner expression
                     next_exp = list()
                     next_exp_position = 0
@@ -124,7 +146,7 @@ def evaluate(exp_holder):
                             if (e == ")"):
                                 break
                             elif (next_exp_position >= len(exp_holder)-1):
-                                print(str_error + str_error_parantheses + str_again)
+                                print(STR_ERROR + STR_ERROR_PARANTHESES + STR_AGAIN)
                             else:
                                 next_exp.append(e)
                         # Increment expression counters
@@ -153,8 +175,10 @@ result = evaluate(exp)
 
 # Debugging printing on expression parts
 exp_str = ""
+
 for d in exp:
     exp_str += str(d)
+	
 print(exp_str + " = " + str(result))
     
 # Print result
