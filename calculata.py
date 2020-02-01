@@ -125,10 +125,12 @@ def evaluate(exp_holder):
     else:
         print(STR_ERROR + STR_ERROR_START + STR_AGAIN)
 		
+	# Evaluation
     group_results = list()
     eval_exp_position = 0
     current_exp_position = 0
 	
+	# Iterate through expression
     for d in exp_holder:
 	
         # Check that loop is caught up
@@ -136,27 +138,27 @@ def evaluate(exp_holder):
             # Evaluate current expression
             if symbol_check(d):
                 next_d = int(exp_holder[eval_exp_position+1])
-				# Parantheses detection
-                if next_d == "(":
-                    # Evaluate inner expression
-                    next_exp = list()
-                    next_exp_position = 0
-                    for e in exp_holder:
-                        if (next_exp_position > eval_exp_position):
-                            if (e == ")"):
-                                break
-                            elif (next_exp_position >= len(exp_holder)-1):
-                                print(STR_ERROR + STR_ERROR_PARANTHESES + STR_AGAIN)
-                            else:
-                                next_exp.append(e)
-                        # Increment expression counters
-                        next_exp_position += 1
-                        eval_exp_position += 1
-                    inner_result = evaluate(listify(next_exp))
-                    result = math_func(d, result, inner_result)
-                else:
-                    eval_exp_position += 1
-                    result = math_func(d, result, next_d)
+                result = math_func(d, result, next_d)
+                eval_exp_position += 1
+			# Parantheses detection
+			elif d == "(":
+				# Get inner expression
+				next_exp = list()
+				next_exp_position = 0
+				for e in exp_holder:
+					if (next_exp_position > eval_exp_position):
+						if (e == ")"):
+							break
+						elif (next_exp_position >= len(exp_holder)-1):
+							print(STR_ERROR + STR_ERROR_PARANTHESES + STR_AGAIN)
+						else:
+							next_exp.append(e)
+							next_exp_position += 1
+					# Evaluate inner expression
+					inner_result = evaluate(listify(next_exp))
+					result = math_func(d, result, inner_result)
+					# Increment expression counter
+					eval_exp_position += 1
                 
             # Increment loop counter
             current_exp_position += 1
