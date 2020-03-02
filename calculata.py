@@ -1,8 +1,8 @@
-#=====================================#
-#             Calculata               #
-#          by Randall Arms            #
-#  @ github.com/randallarms/calculata #
-#=====================================#
+#======================================#
+#             Calculata                #
+#          by Randall Arms             #
+#  @ github.com/randallarms/calculata  #
+#======================================#
 
 # Opening text
 print("\n\n===================")
