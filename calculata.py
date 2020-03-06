@@ -138,8 +138,6 @@ def evaluate(exp_holder):
     
         # Check that loop is caught up
         if current_exp_position >= eval_exp_position:
-            #!!!!!!!!DEBUG
-            print("Loop check #" + str(current_exp_position))
             # Evaluate current expression
             if symbol_check(d):
                 next_d = int(exp_holder[eval_exp_position+1])
@@ -184,14 +182,6 @@ print("\nEvaluating expression: ")
 
 exp = listify(i)
 result = evaluate(exp)
-
-# Debugging printing on expression parts
-exp_str = ""
-
-for d in exp:
-    exp_str += str(d)
-    
-print(exp_str + " = " + str(result))
     
 # Print result
 print(str(result))
