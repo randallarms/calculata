@@ -40,7 +40,7 @@ def int_check(n):
     except ValueError:
         return False
         
-# Checks that the input c is an integer  
+# Checks that the input c is an acceptable operation symbol  
 def symbol_check(c):
 
     symbols = ["+", "-", "*", "/"]
@@ -50,7 +50,7 @@ def symbol_check(c):
     else:
         return False
         
-# Checks that the input p is a parenthesis
+# Checks that the input p is an open or close parenthesis
 def paranthesis_check(p):
 
     if p == "(" or p == ")":
@@ -165,10 +165,9 @@ def evaluate(exp_holder):
             eval_exp_position += 1
         else:
             current_exp_position += 1
-                
         
-        # Return the result
-        return result
+    # Return the result
+    return result
         
 #=======#
 # INPUT #
