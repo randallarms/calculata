@@ -10,6 +10,7 @@ print(" C A L C U L A T A ")
 print("===================")
 
 # Error strings
+STR_WARNING = "[WARNING] "
 STR_ERROR = "[ERROR] "
 STR_ERROR_START = "Expression must begin with an integer or open paranthesis."
 STR_ERROR_SYMBOL = "Extraneous symbols were detected."
