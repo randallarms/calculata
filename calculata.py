@@ -130,6 +130,7 @@ def evaluate(exp_holder):
         print(STR_ERROR + STR_ERROR_START + STR_AGAIN)
         
     # Evaluation
+    
     group_results = list()
     eval_exp_position = 0
     current_exp_position = 0
@@ -163,6 +164,7 @@ def evaluate(exp_holder):
                     # Increment expression counter
                     eval_exp_position += 1
             # Increment loop counters
+            current_exp_position += 1
             eval_exp_position += 1
         else:
             current_exp_position += 1
