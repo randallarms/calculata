@@ -83,14 +83,16 @@ def listify(i):
     
     for c in i:
         if (int_check(c)):
+            print("[DEBUG] Int check: " + str(c))
             int_holder.append(c)
             if exp_position+1 == len(i):
                 exp_holder.append(make_int(int_holder))
         # Check for symbol
         elif (symbol_check(c)):
+            print("[DEBUG] Symbol check: " + str(c))
             exp_size = len(exp_holder)
             # Make sure symbols aren't back-to-back
-            if exp_size > 0 and symbol_check(exp_holder[len(exp_holder)-2]):
+            if exp_size > 1 and symbol_check(exp_holder[len(exp_holder)-2]):
                 print(STR_ERROR + STR_ERROR_SYMBOL + STR_AGAIN)
                 exit()
             # Add the last integer and symbol to the expression
@@ -99,11 +101,16 @@ def listify(i):
             int_holder = list()
         # Check for parantheses
         elif (paranthesis_check(c)):
+            print("[DEBUG] Paranthesis check: " + str(c))
             exp_size = len(exp_holder)
-            # Make sure symbols aren't back-to-back
-            if exp_size > 0 and int_check(exp_holder[exp_size-2]):
+            # Make sure parantheses aren't back-to-back
+            if exp_size > 1 and paranthesis_check(exp_holder[exp_size-2]):
                 print(STR_ERROR + STR_ERROR_CHAR + STR_AGAIN)
                 exit()
+            # Account for closing parantheses to compile and flush int_holder
+            elif exp_size > 1 and int_check(exp_holder[exp_size-2]):
+                exp_holder.append(make_int(int_holder))
+                int_holder = list()
             # Add the parantheses to the expression
             exp_holder.append(c)
         else:
@@ -111,6 +118,8 @@ def listify(i):
             exit()
         exp_position += 1
         
+    print("[DEBUG] Exp_holder: " + str(exp_holder))
+    
     # Check that a number or open paranthesis comes first
     if int_check(exp_holder[0]) or exp_holder[0] == "(":
         return exp_holder
