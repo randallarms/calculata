@@ -16,7 +16,7 @@ STR_ERROR_START = "Expression must begin with an integer or open parenthesis."
 STR_ERROR_SYMBOL = "Extraneous symbols were detected."
 STR_ERROR_CHAR = "One of the characters in your query is not valid."
 STR_ERROR_ZERO = "Division by zero detected."
-STR_ERROR_parentheses = "parentheses not properly closed."
+STR_ERROR_PARENTHESES = "Parentheses not properly closed."
 STR_AGAIN = " Please try again."
         
 #===========#
@@ -29,7 +29,7 @@ def make_int(int_holder):
     int_str = ""
     
     for n in int_holder:
-        int_str += n
+        int_str += str(n)
     return int(int_str)
 
 # Checks that the input n is an integer
@@ -101,7 +101,7 @@ def listify(i):
             int_holder = list()
         # Check for parentheses
         elif (parenthesis_check(c)):
-            print("[DEBUG] parenthesis check: " + str(c))
+            print("[DEBUG] Parenthesis check: " + str(c))
             exp_size = len(exp_holder)
             # Make sure parentheses aren't back-to-back
             if exp_size > 1 and parenthesis_check(exp_holder[exp_size-2]):
@@ -153,25 +153,23 @@ def evaluate(exp_holder):
             if symbol_check(d):
                 next_d = int(exp_holder[eval_exp_position+1])
                 result = math_func(d, result, next_d)
-            # parentheses detection
+            # Parentheses detection
             elif d == "(":
                 # Get inner expression
                 next_exp = list()
-                next_exp_position = 0
+                next_exp_position = current_exp_position
                 for e in exp_holder:
-                    if (next_exp_position > eval_exp_position):
+                    if (next_exp_position >= eval_exp_position):
                         if (e == ")"):
                             break
                         elif (next_exp_position >= len(exp_holder)-1):
-                            print(STR_ERROR + STR_ERROR_parentheses + STR_AGAIN)
+                            print(STR_ERROR + STR_ERROR_PARENTHESES + STR_AGAIN)
                         else:
                             next_exp.append(e)
                             next_exp_position += 1
-                    # Evaluate inner expression
-                    inner_result = evaluate(listify(next_exp))
-                    result = math_func(d, result, inner_result)
-                    # Increment expression counter
-                    eval_exp_position += 1
+                # Evaluate inner expression
+                inner_result = evaluate(listify(next_exp))
+                result = math_func(d, result, inner_result)
             # Increment loop counters
             current_exp_position += 1
             eval_exp_position += 1
