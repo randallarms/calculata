@@ -12,11 +12,11 @@ print("===================")
 # Error strings
 STR_WARNING = "[WARNING] "
 STR_ERROR = "[ERROR] "
-STR_ERROR_START = "Expression must begin with an integer or open paranthesis."
+STR_ERROR_START = "Expression must begin with an integer or open parenthesis."
 STR_ERROR_SYMBOL = "Extraneous symbols were detected."
 STR_ERROR_CHAR = "One of the characters in your query is not valid."
 STR_ERROR_ZERO = "Division by zero detected."
-STR_ERROR_PARANTHESES = "Parantheses not properly closed."
+STR_ERROR_parentheses = "parentheses not properly closed."
 STR_AGAIN = " Please try again."
         
 #===========#
@@ -52,7 +52,7 @@ def symbol_check(c):
         return False
         
 # Checks that the input p is an open or close parenthesis
-def paranthesis_check(p):
+def parenthesis_check(p):
 
     if p == "(" or p == ")":
         return True
@@ -99,19 +99,19 @@ def listify(i):
             exp_holder.append(make_int(int_holder))
             exp_holder.append(c)
             int_holder = list()
-        # Check for parantheses
-        elif (paranthesis_check(c)):
-            print("[DEBUG] Paranthesis check: " + str(c))
+        # Check for parentheses
+        elif (parenthesis_check(c)):
+            print("[DEBUG] parenthesis check: " + str(c))
             exp_size = len(exp_holder)
-            # Make sure parantheses aren't back-to-back
-            if exp_size > 1 and paranthesis_check(exp_holder[exp_size-2]):
+            # Make sure parentheses aren't back-to-back
+            if exp_size > 1 and parenthesis_check(exp_holder[exp_size-2]):
                 print(STR_ERROR + STR_ERROR_CHAR + STR_AGAIN)
                 exit()
-            # Account for closing parantheses to compile and flush int_holder
+            # Account for closing parentheses to compile and flush int_holder
             elif exp_size > 1 and int_check(exp_holder[exp_size-2]):
                 exp_holder.append(make_int(int_holder))
                 int_holder = list()
-            # Add the parantheses to the expression
+            # Add the parentheses to the expression
             exp_holder.append(c)
         else:
             print(STR_ERROR + STR_ERROR_CHAR + STR_AGAIN)
@@ -120,7 +120,7 @@ def listify(i):
         
     print("[DEBUG] Exp_holder: " + str(exp_holder))
     
-    # Check that a number or open paranthesis comes first
+    # Check that a number or open parenthesis comes first
     if int_check(exp_holder[0]) or exp_holder[0] == "(":
         return exp_holder
     else:
@@ -130,7 +130,7 @@ def listify(i):
 # Iterate through list and evaluate
 def evaluate(exp_holder):
 
-    # Check that expression begins with an integer or open paranthesis
+    # Check that expression begins with an integer or open parenthesis
     if int_check(exp_holder[0]):
         result = int(exp_holder[0])
     elif exp_holder[0] == "(":
@@ -153,7 +153,7 @@ def evaluate(exp_holder):
             if symbol_check(d):
                 next_d = int(exp_holder[eval_exp_position+1])
                 result = math_func(d, result, next_d)
-            # Parantheses detection
+            # parentheses detection
             elif d == "(":
                 # Get inner expression
                 next_exp = list()
@@ -163,7 +163,7 @@ def evaluate(exp_holder):
                         if (e == ")"):
                             break
                         elif (next_exp_position >= len(exp_holder)-1):
-                            print(STR_ERROR + STR_ERROR_PARANTHESES + STR_AGAIN)
+                            print(STR_ERROR + STR_ERROR_parentheses + STR_AGAIN)
                         else:
                             next_exp.append(e)
                             next_exp_position += 1
