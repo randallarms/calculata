@@ -18,6 +18,7 @@ STR_ERROR_CHAR = "One of the characters in your query is not valid."
 STR_ERROR_ZERO = "Division by zero detected."
 STR_ERROR_PARENTHESES = "Parentheses not properly closed."
 STR_AGAIN = " Please try again."
+STR_EXIT = " Now exiting."
         
 #===========#
 # FUNCTIONS #
