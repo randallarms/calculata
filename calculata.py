@@ -184,14 +184,18 @@ def evaluate(exp_holder):
 # INPUT #
 #=======#
 
-# Input the expression
-i = input("\nEnter expression:  ");
+i = "calculata"
 
-# Evaluate the expression
-print("\nEvaluating expression: ")
+while i != "exit":
 
-exp = listify(i)
-result = evaluate(exp)
-    
-# Print result
-print(str(result))
+	# Input the expression
+	i = input("\nEnter expression:  ");
+
+	# Evaluate the expression
+	print("\nEvaluating expression: ")
+
+	exp = listify(i)
+	result = evaluate(exp)
+		
+	# Print result
+	print("\nYour result is: " + str(result))
