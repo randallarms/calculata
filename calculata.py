@@ -9,6 +9,9 @@ print("\n\n===================")
 print(" C A L C U L A T A ")
 print("===================")
 
+# General info
+VERSION = "0.7.12"
+
 # Error strings
 STR_WARNING = "[WARNING] "
 STR_ERROR = "[ERROR] "
@@ -144,6 +147,7 @@ def evaluate(exp_holder):
     group_results = list()
     eval_exp_position = 0
     current_exp_position = 0
+	pemdas_phase = "p" # (p) parantheses, (e) exponents, (md) multiplication/division, (as) addition/subtraction
     
     # Iterate through expression
     for d in exp_holder:
@@ -190,12 +194,18 @@ while i != "exit":
 
 	# Input the expression
 	i = input("\nEnter expression:  ");
-
-	# Evaluate the expression
-	print("\nEvaluating expression: ")
-
-	exp = listify(i)
-	result = evaluate(exp)
-		
-	# Print result
-	print("\nYour result is: " + str(result))
+	
+	if i == "exit":
+		print("\nThank you for using Calculata, v" + VERSION + "!")
+		print("This version of Calculata is in development ")
+		print("and is for debugging purposes only! ")
+		print("For more info, please visit ")
+		print("https://www.github.com/randallarms/calculata")
+		break
+	else:
+		# Evaluate the expression
+		print("\nEvaluating expression...")
+		exp = listify(i)
+		result = evaluate(exp)
+		# Print result
+		print("Your result is: " + str(result))
