@@ -13,6 +13,7 @@ print("===================")
 VERSION = "0.7.12"
 
 # Error strings
+STR_DEBUG = "[DEBUG] "
 STR_WARNING = "[WARNING] "
 STR_ERROR = "[ERROR] "
 STR_ERROR_START = "Expression must begin with an integer or open parenthesis."
@@ -78,6 +79,16 @@ def math_func(symbol, n1, n2):
             exit()
         return n1/n2
         
+# Exit message
+def exit_msg():
+    
+    print("\nThank you for using Calculata, v" + VERSION + "!")
+    print("This version of Calculata is in development ")
+    print("and is for debugging purposes only! ")
+    print("For more info, please visit ")
+    print("https://www.github.com/randallarms/calculata")
+    return
+        
 # Turn string into list of integers & symbols
 def listify(i):
 
@@ -87,13 +98,13 @@ def listify(i):
     
     for c in i:
         if (int_check(c)):
-            print("[DEBUG] Int check: " + str(c))
+            print(STR_DEBUG + "Int check: " + str(c))
             int_holder.append(c)
             if exp_position+1 == len(i):
                 exp_holder.append(make_int(int_holder))
         # Check for symbol
         elif (symbol_check(c)):
-            print("[DEBUG] Symbol check: " + str(c))
+            print(STR_DEBUG + "Symbol check: " + str(c))
             exp_size = len(exp_holder)
             # Make sure symbols aren't back-to-back
             if exp_size > 1 and symbol_check(exp_holder[len(exp_holder)-2]):
@@ -105,7 +116,7 @@ def listify(i):
             int_holder = list()
         # Check for parentheses
         elif (parenthesis_check(c)):
-            print("[DEBUG] Parenthesis check: " + str(c))
+            print(STR_DEBUG + "Parenthesis check: " + str(c))
             exp_size = len(exp_holder)
             # Make sure parentheses aren't back-to-back
             if exp_size > 1 and parenthesis_check(exp_holder[exp_size-2]):
@@ -122,7 +133,7 @@ def listify(i):
             exit()
         exp_position += 1
         
-    print("[DEBUG] Exp_holder: " + str(exp_holder))
+    print(STR_DEBUG + "Exp_holder: " + str(exp_holder))
     
     # Check that a number or open parenthesis comes first
     if int_check(exp_holder[0]) or exp_holder[0] == "(":
@@ -147,7 +158,7 @@ def evaluate(exp_holder):
     group_results = list()
     eval_exp_position = 0
     current_exp_position = 0
-	pemdas_phase = "p" # (p) parantheses, (e) exponents, (md) multiplication/division, (as) addition/subtraction
+    pemdas_phase = "p" # (p) parantheses, (e) exponents, (md) multiplication/division, (as) addition/subtraction
     
     # Iterate through expression
     for d in exp_holder:
@@ -192,20 +203,16 @@ i = "calculata"
 
 while i != "exit":
 
-	# Input the expression
-	i = input("\nEnter expression:  ");
-	
-	if i == "exit":
-		print("\nThank you for using Calculata, v" + VERSION + "!")
-		print("This version of Calculata is in development ")
-		print("and is for debugging purposes only! ")
-		print("For more info, please visit ")
-		print("https://www.github.com/randallarms/calculata")
-		break
-	else:
-		# Evaluate the expression
-		print("\nEvaluating expression...")
-		exp = listify(i)
-		result = evaluate(exp)
-		# Print result
-		print("Your result is: " + str(result))
+    # Input the expression
+    i = input("\nEnter expression:  ");
+    
+    if i == "exit":
+        exit_msg()
+        break
+    else:
+        # Evaluate the expression
+        print("\nEvaluating expression...")
+        exp = listify(i)
+        result = evaluate(exp)
+        # Print result
+        print("Your result is: " + str(result))
