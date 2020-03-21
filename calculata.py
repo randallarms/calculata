@@ -199,7 +199,7 @@ def evaluate(exp_holder):
 # INPUT #
 #=======#
 
-i = "calculata"
+i = ""
 
 while i != "exit":
 
